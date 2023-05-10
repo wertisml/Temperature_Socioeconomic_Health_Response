@@ -112,11 +112,9 @@ Model_list <- Models
 # Save performance
 Hoge <- c()
 
-# Roop
+# Loop
 for(iii in Model_list){
-  
-  
-  # iii <- Models[1]
+
   # load models
   Model <- readRDS(iii)
   
@@ -138,48 +136,10 @@ for(iii in Model_list){
   Test$Dif <- Test$Predicted - Test$Obserbved
   
   
-  #==============================================================================#
-  # Make figures
-  #==============================================================================#
-  
-  # # Make figures train
-  # ggplot(data = Train, aes(x = Predicted, y = Obserbved)) +
-  # 	geom_point() + 
-  # 	geom_smooth(method = lm) + 
-  # 	scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 1)) + 
-  # 	scale_y_continuous(limits = c(0, 20), breaks = seq(0, 10, 1)) + 
-  #   xlab("Predicted") + 
-  #   ylab("Actual") +
-  #   stat_cor(label.y = 10, 
-  #            aes(label = paste(..rr.label.., sep = "~`,`~"))) +
-  #   stat_regline_equation(label.y = 9.5) +
-  # 	theme_classic() 
-  # ggsave(paste("Out_plot_", iii, "_train.png", sep = ""), width = 4.2, height = 3.2) #*action
-  # 
-  # # Make figures test
-  # ggplot(data = Test, aes(x = Predicted, y = Obserbved)) +
-  # 	geom_point() + 
-  # 	geom_smooth(method = lm) + 
-  # 	scale_x_continuous(limits = c(0, 15), breaks = seq(0, 15, 5)) + 
-  # 	scale_y_continuous(limits = c(0, 25), breaks = seq(0, 25, 5)) + 
-  #   xlab("Predicted") + 
-  #   ylab("Actual") +
-  #   stat_cor(label.y = 20, 
-  #            aes(label = paste(..rr.label.., sep = "~`,`~"))) +
-  #   stat_regline_equation(label.y = 18.5) +
-  # 	theme_classic() 
-  # ggsave(paste("Out_plot_", iii, "_test.png", sep = ""), width = 4.2, height = 3.2) #*action
-  # 
-  # # Make Fig train
-  # DataSum_train <- Train %>%
-  #   filter(Date > "2016-01-01") %>%
-  # 	group_by(Date) %>%
-  # 	summarise(Obserbved = sum(Obserbved),
-  # 		Predicted = sum(Predicted)) %>%
-  # 	data.table() %>%
-  # 	print()
-  
-  
+#==============================================================================#
+# Make figures
+#==============================================================================#
+
   DataSum_test <- Test %>%
     filter(Date > "2016-01-01") %>%
     group_by(Date) %>%
@@ -189,35 +149,6 @@ for(iii in Model_list){
     ) %>%
     data.table() %>%
     print()
-  # 
-  # DataSum_train[, Date:=as.Date(Date), ]
-  # DataSum_train[, YearUse:=year(Date), ]
-  # DataSum_train <- DataSum_train[order(Date), , ]
-  # DataSum_train[, Day:=1:length(Obserbved), by = YearUse]
-  # DataSum_train
-  # 
-  # 
-  # DataSum_train[Date == as.Date("2016-06-01"), , ]
-  # DataSum_train[Date == as.Date("2016-07-01"), , ]
-  # DataSum_train[Date == as.Date("2016-08-01"), , ]
-  # 
-  # 
-  # ggplot(data = DataSum_train, aes(x = Day), group=factor(YearUse)) +
-  #   geom_line(aes(y = Obserbved, x=Day), colour = "Black", size = 0.4) + 
-  #   geom_line(aes(y = Predicted, x=Day), colour = "Red", size = 0.4) + 
-  #   xlab("") + 
-  #   ylab("") +
-  #   scale_y_continuous(limits = c(0, 140), 
-  #                      breaks = seq(0, 140, 10)) + 
-  #   scale_x_continuous(label = c("Jun.", "Jul.", "Aug."),    
-  #                      breaks = c(1, 31, 62)) + 
-  #   theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-  #   facet_grid(~YearUse) +
-  #   theme_classic()
-  
-  #==============================================================================#
-  #
-  #==============================================================================#
   
   DataSum_test[, Date:=as.Date(Date), ]
   DataSum_test[, YearUse:=year(Date), ]
