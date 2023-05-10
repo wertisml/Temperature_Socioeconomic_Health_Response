@@ -778,6 +778,24 @@
       ],
       "Hash": "8b708f296afd9ae69f450f9640be8990"
     },
+    "dlnm": {
+      "Package": "dlnm",
+      "Version": "2.4.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "grDevices",
+        "graphics",
+        "mgcv",
+        "nlme",
+        "splines",
+        "stats",
+        "tsModel",
+        "utils"
+      ],
+      "Hash": "1f34fb7164a921acf1d10af6f9fbd3cd"
+    },
     "doParallel": {
       "Package": "doParallel",
       "Version": "1.0.17",
@@ -1847,6 +1865,20 @@
         "stats"
       ],
       "Hash": "a4b659bd0528226724d55034f11ed7cb"
+    },
+    "mixmeta": {
+      "Package": "mixmeta",
+      "Version": "1.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "grDevices",
+        "graphics",
+        "stats",
+        "utils"
+      ],
+      "Hash": "a38c5549ae63e41553c332e5721a093a"
     },
     "mnormt": {
       "Package": "mnormt",
@@ -3005,6 +3037,18 @@
         "xfun"
       ],
       "Hash": "e4e357f28c2edff493936b6cb30c3d65"
+    },
+    "tsModel": {
+      "Package": "tsModel",
+      "Version": "0.6-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "splines",
+        "stats"
+      ],
+      "Hash": "0bd7f681b439e5f3776813ad6f3b8cb4"
     },
     "tune": {
       "Package": "tune",
