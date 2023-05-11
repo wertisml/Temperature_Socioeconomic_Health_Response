@@ -197,11 +197,11 @@ fit_control = trainControl(allowParallel = TRUE,
 	                        )
 
 # Tune Hyper parameters
-tune_params = expand.grid(nrounds = seq(51, 76, 25), 
-                          max_depth = seq(3, 3, 2),
-                          min_child_weight = seq(3, 3, 1),
-                          gamma = seq(0.15, 0.3, 0.15),
-                          colsample_bytree = seq(0.4, 0.4, 0.2),
+tune_params = expand.grid(nrounds = seq(30, 70, 10), 
+                          max_depth = seq(1, 4, 1),
+                          min_child_weight = seq(4, 6, 1),
+                          gamma = seq(0.15, 0.15, 0.15),
+                          colsample_bytree = seq(0.6, 0.8, 0.2),
                           subsample = seq(0.4, 0.8, 0.2),
                           eta = seq(0.1, 0.1, 1)
                          ) %>% as.data.frame
@@ -282,6 +282,6 @@ summary(xgbTree_temp)
 xgbTree_temp
 toc()
 
-setwd("~/Thesis/Model_rds")
+setwd("~/Temperature_Socioeconomic_Health_Response/Model_rds")
 saveRDS(xgbTree_temp, "XGBoost.rds")
 

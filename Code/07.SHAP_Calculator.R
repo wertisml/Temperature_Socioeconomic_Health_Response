@@ -6,14 +6,15 @@ library(tidymodels)
 library(DALEX)
 library(iBreakDown)
 library(doParallel)
+library(randomForest)
 
-setwd("~/Temperature_Socioeconomic_Health_Response/Files")
+setwd("~/Temperature_Socioeconomic_Health_Response")
 
 #==============================================================================#
 # Input data
 #==============================================================================#
 
-Data <- fread("North_Carolina_sheps_temp.csv")
+Data <- fread("Files/North_Carolina_sheps_temp.csv")
 
 #==============================================================================#
 # Clean Data
@@ -109,11 +110,11 @@ SHAP_Calculation <- function(variable_names, Model_type, SHAP_sample_size){
 # File must be .rds
 
 # Read in rds file
-Model <- readRDS("~/Model_rds/GAM.rds")
+Model <- readRDS("Model_rds/XGBoost.rds")
 
 system.time(
   Shap <- SHAP_Calculation(variable_names = c(names(Train)), # list of variables used to create your model
-                           Model_type = "GAM", # What type of ML model is Model?
+                           Model_type = "XGBoost", # What type of ML model is Model?
                            SHAP_sample_size = 293) # This is the number of points from Train that you want the SHAP value calculated for, the larger the number, the slower the calculation
 )                    
         
@@ -164,7 +165,7 @@ w <- par("fin")[1] * res
 h <- par("fin")[2] * res
 
 # Create a new device with the desired resolution
-png(filename = paste0("All_Cities_GAM_over_25", ".png"), width = w, height = h, res = res)
+png(filename = paste0("All_Cities_XGBoost", ".png"), width = w, height = h, res = res)
 
 SHAP_Plot
 

@@ -1,8 +1,10 @@
 library(tidymodels)
+library(caret)
 library(vip)
 library(data.table)
 library(dplyr)
 library(ggpubr)
+library(doParallel)
 
 setwd("~/Temperature_Socioeconomic_Health_Response/Files")
 
@@ -138,7 +140,7 @@ fit_control = trainControl(
   seeds = Seeds_fix)
 
 # RF
-tic()
+
 # get results
 RF_temp <- rfe(
   form = Form_temp,
@@ -152,7 +154,6 @@ RF_temp <- rfe(
 
 summary(RF_temp)
 RF_temp
-toc()
 
 setwd("~/Temperature_Socioeconomic_Health_Response/Model_rds")
 saveRDS(RF_temp, "RF.rds")
