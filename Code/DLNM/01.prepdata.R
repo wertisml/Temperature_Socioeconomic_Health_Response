@@ -63,13 +63,19 @@ for(i in seq(nrow(cities))) {
    # -2*sum( dpois( model$y, model$fitted.values, log=TRUE))+
    #   2*summary(model)$df[3]*summary(model)$dispersion
 
-   redpred <- crossreduce(cbtmean, model, cen=mean(data$TAVG, na.rm=T)) 
+  redpred <- crossreduce(cbtmean, model, cen=mean(data$TAVG, na.rm=T)) 
   # 
-   lines <- quantile(data$TAVG, c(2.5,50,97.5)/100, na.rm=T)
+  lines <- quantile(data$TAVG, c(2.5,50,97.5)/100, na.rm=T)
   
+  # Picture of plot
+  #pdf(file = paste0(cities$cityname[i], ".pdf"), width = 6, height = 6)
+   
   plot(redpred, ylim=c(0.5,1.5), xlab="Temperature (C)", ylab="RR", main=paste0(cities$cityname[i]))
   abline(v=c(lines[1], lines[3]), lty=2, col=grey(0.8))
   abline(v = redpred$cen, lty = 2)
+  
+  # Save the plot
+  #dev.off()
 
   #pred <- crosspred(cbtmean, model, cumul=T)
   

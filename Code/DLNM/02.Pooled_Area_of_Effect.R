@@ -52,11 +52,15 @@ cen <- sum(TAVG)/nrow(TAVG)
 cp <- crosspred(bvar, coef=coef(model0), vcov=vcov(model0), model.link="log",
   at=tmean, cen=cen)
 
-# PLOTTING LABELS
+# Picture of plot
+pdf(file = paste0("Pooled_Area_of_Effect", ".pdf"), width = 6, height = 6)
 # PLOT
 plot(cp, ylim=c(0.75,1.3), xlab="Temperature (C)", ylab="RR", main="North Carolina")
 abline(v=cen, lty=2)
 abline(v=c(tmean[3], tmean[99]), lty=3, col=grey(0.8)) 
+
+# Save the plot
+dev.off()
 
 # RR locations
 pred <- crosspred(bvar, coef=coef(model0), vcov=vcov(model0), model.link="log",

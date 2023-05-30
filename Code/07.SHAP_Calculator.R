@@ -41,7 +41,7 @@ Test <- testing(split)
 # SHAP
 #==============================================================================#
 
-SHAP_Calculation <- function(variable_names, Model_type, SHAP_sample_size){
+SHAP_Calculation <- function(variable_names, Model_type, SHAP_sample_size, Interval_col, Outcome){
   
   # Set-up parallel
   n.cores <- parallel::detectCores() - 1
@@ -56,16 +56,16 @@ SHAP_Calculation <- function(variable_names, Model_type, SHAP_sample_size){
   doParallel::registerDoParallel(cl = my.cluster)
   
   # Create SHAP-ID
-  Train <- Train[order(Date), , ]
-  Train[, ID_SHAP := 1:nrow(Train), ]
-  Train <- data.frame(Train)
-  Test <- data.frame(Test)
+  Train <- Train %>%
+    arrange(Interval_col) %>%
+    mutate(ID_SHAP = 1:nrow(.)) %>%
+    as.data.frame()
   
   Select_predictor <- variable_names
   
   explain_Model <- DALEX::explain(Model,
                                   data = Train[, Select_predictor],
-                                  y = Train$Mental_Health,
+                                  y = Train[, Outcome],
                                   label = Model_type)
   
   Hoge <- c()
@@ -110,11 +110,13 @@ SHAP_Calculation <- function(variable_names, Model_type, SHAP_sample_size){
 # File must be .rds
 
 # Read in rds file
-Model <- readRDS("Model_rds/XGBoost.rds")
+Model <- readRDS("Model_rds/RF.rds")
 
 system.time(
-  Shap <- SHAP_Calculation(variable_names = c(names(Train)), # list of variables used to create your model
-                           Model_type = "XGBoost", # What type of ML model is Model?
+  Shap <- SHAP_Calculation(variable_names = c(Model$coefnames), # list of variables used to create your model
+                           Model_type = "RF", # What type of ML model is Model?
+                           Interval_col = "Date", # The column with the information on the frequency of data (ex: Date)
+                           Outcome = "Mental_Health", # The value being predicted 
                            SHAP_sample_size = 293) # This is the number of points from Train that you want the SHAP value calculated for, the larger the number, the slower the calculation
 )                    
         
